@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+  # Next.js Application
+  erasify-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - NODE_ENV=production
+    container_name: erasify-app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      # Convex Configuration
+      - CONVEX_DEPLOYMENT=${CONVEX_DEPLOYMENT}
+      - NEXT_PUBLIC_CONVEX_URL=${NEXT_PUBLIC_CONVEX_URL}
+      
+      # Kinde Authentication
+      - KINDE_CLIENT_ID=${KINDE_CLIENT_ID}
+      - KINDE_CLIENT_SECRET=${KINDE_CLIENT_SECRET}
+      - KINDE_ISSUER_URL=${KINDE_ISSUER_URL}
+      - KINDE_SITE_URL=${KINDE_SITE_URL:-http://localhost:3000}
+      - KINDE_POST_LOGOUT_REDIRECT_URL=${KINDE_POST_LOGOUT_REDIRECT_URL:-http://localhost:3000}
+      - KINDE_POST_LOGIN_REDIRECT_URL=${KINDE_POST_LOGIN_REDIRECT_URL:-http://localhost:3000/dashboard}
+      
+      # Application Configuration
+      - NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL:-http://localhost:3000}
+      - NODE_ENV=production
+    volumes:
+      # Mount node_modules as a volume for better performance
+      - node_modules:/app/node_modules
+      # Mount .next for caching (optional, can improve rebuild times)
+      - .next:/app/.next
+    networks:
+      - erasify-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    depends_on:
+      - redis
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # Redis for caching (optional but recommended for production)
+  redis:
+    image: redis:7-alpine
+    container_name: erasify-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - erasify-network
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-erasify_redis_pass}
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "5m"
+        max-file: "2"
+
+  # Nginx Reverse Proxy (optional, for production deployments)
+  nginx:
+    image: nginx:alpine
+    container
