@@ -62,7 +62,7 @@ Before you begin, ensure you have the following installed:
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/erasify.git
+   git clone https://github.com/Harry101969/erasify.git
    cd erasify
    ```
 
@@ -113,7 +113,7 @@ Before you begin, ensure you have the following installed:
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/erasify.git
+   git clone https://github.com/Harry101969/erasify.git
    cd erasify
    ```
 
@@ -282,7 +282,7 @@ Erasify can be deployed to any platform that supports Next.js:
 
 ## 🐛 Known Issues
 
-Check the [Issues](https://github.com/yourusername/erasify/issues) page for current bugs and feature requests.
+Check the [Issues](https://github.com/Harry101969/erasify/issues) page for current bugs and feature requests.
 
 ## 📄 License
 
@@ -299,7 +299,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - 📧 Email: support@erasify.com
 - 💬 Discord: [Join our community](https://discord.gg/erasify)
-- 🐛 Issues: [GitHub Issues](https://github.com/yourusername/erasify/issues)
+- 🐛 Issues: [GitHub Issues](https://github.com/Harry101969/erasify/issues)
 - 📖 Docs: [Documentation](https://docs.erasify.com)
 
 ## ⭐ Star History
