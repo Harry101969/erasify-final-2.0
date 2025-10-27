@@ -1,7 +1,10 @@
 
 import React from "react";
 import { Pencil, Users, Zap, ArrowRight, Menu } from "lucide-react";
-
+import {
+  LoginLink,
+  RegisterLink,
+} from "@kinde-oss/kinde-auth-nextjs/components";
 // Header Component
 const Header = () => {
   return (
@@ -61,18 +64,16 @@ const Header = () => {
 
           <div className="flex items-center gap-4">
             <div className="sm:flex sm:gap-4">
-              <a
-                href="#"
+              <div
                 className="block rounded-md px-5 py-2.5 text-sm font-medium text-white transition hover:bg-gray-800 hover:text-blue-400"
               >
-                Login
-              </a>
-              <a
-                href="#"
+                <LoginLink postLoginRedirectURL="/dashboard">Login</LoginLink>
+              </div>
+              <div
                 className="hidden rounded-md bg-gradient-to-r from-blue-600 to-cyan-500 px-5 py-2.5 text-sm font-medium text-white transition hover:opacity-90 sm:block"
               >
-                Register
-              </a>
+                <RegisterLink>Register</RegisterLink>
+              </div>
             </div>
 
             <button className="block rounded bg-gray-800 p-2.5 text-gray-300 transition hover:text-blue-400 md:hidden">
